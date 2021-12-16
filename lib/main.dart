@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -45,6 +47,12 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class Player {
+  static const none = '';
+  static const X = 'X';
+  static const O = 'O';
 }
 
 class _MyHomePageState extends State<MyHomePage> {
