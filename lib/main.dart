@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,11 +51,46 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+//Player classes for Tic Tac Toe
+
 class Player {
   static const none = '';
   static const X = 'X';
   static const O = 'O';
 }
+
+//The state of the Tic Tac Toe Page
+
+class _TicTacToePageState extends State<TicTacToePage> {
+  static final countMatrix = 3;       // size of the grid, prolly won't need to adjust this
+  static final double size = 92;       // size of each space to fill
+
+  List<List<String>> matrix;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setEmptyFields();
+  }
+
+  void setEmptyFields() => setState(() => matrix = List.generate(               // This creates a list of blocks (3 blocks total, this is the first column of spaces)
+    countMatrix,
+    (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other two columns.
+  ));
+}
+
+ @override
+ Widget build(BuildContext context) => Scaffold(
+   backgroundColor: Colors.red,
+   appBar: AppBar(
+     title: Text(widget.title),
+   ),
+   body: Column(
+     mainAxisAlignment: MainAxisAlignment.center,
+     children: Utils.modelBuilder(matrix, (x, value) => buildRow()),
+   )
+  );
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
