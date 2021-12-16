@@ -23,8 +23,6 @@ class TicTacToe extends StatelessWidget {
   }
 }
 
-
-
 class TicTacToePage extends StatefulWidget {
   const TicTacToePage({Key? key, required this.title}) : super(key: key);
 
@@ -50,7 +48,7 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   String lastMove = Player.none;      // At the start of the game, the latest move is no move (this makes sense)
 
-  List<List<String>> matrix;          // (How do we know we're in the matrix?)
+  late List<List<String>> matrix;          // (How do we know we're in the matrix?)
 
   @override
   void initState() {
@@ -186,14 +184,14 @@ Future showEndDialog(String title) => showDialog(
   barrierDismissible: false,
   builder: (context) => AlertDialog(
     title: Text(title),
-    content: Text('Press to play again'),
+    content: Text('Run it back!'),   // dialog message
     actions: [
       ElevatedButton(
         onPressed: () { 
           setEmptyFields();                 // resets the tiles to their initial values (O and X are removed)
           Navigator.of(context).pop();      // hides the dialog
         },
-        child: Text('Restart'),
+        child: Text('Restart'),             // button text
       )
     ],
     ),
