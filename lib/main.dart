@@ -34,9 +34,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
-}
-=======
 }
 
 
@@ -48,4 +45,3 @@ class MyApp extends StatelessWidget {
 //     );
 //   });
 // }
->>>>>>> 7644ff09a5b8c0e186fe532c048610305b32be3f
