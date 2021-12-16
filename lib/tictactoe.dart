@@ -1,6 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '/utils.dart';
+
 
 void main() {
   runApp(const TicTacToe());
@@ -13,11 +14,11 @@ class TicTacToe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tic Tac Toe',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
-      home: const TicTacToePage(title: 'Flutter Demo Home Page'),
+      home: const TicTacToePage(title: 'Tic Tac Toe Home Page'),
     );
   }
 }
@@ -47,7 +48,9 @@ class _TicTacToePageState extends State<TicTacToePage> {
   static final countMatrix = 3;       // size of the grid, prolly won't need to adjust this
   static final double size = 92;       // size of each space to fill
 
-  List<List<String>> matrix;
+  String lastMove = Player.none;      // At the start of the game, the latest move is no move (this makes sense)
+
+  List<List<String>> matrix;          // (How do we know we're in the matrix?)
 
   @override
   void initState() {
@@ -60,83 +63,140 @@ class _TicTacToePageState extends State<TicTacToePage> {
     countMatrix,
     (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other two columns.
   ));
+
+// Changes the background color depending on who's turn it is.
+
+Color getBackgroundColor() {
+  final thisMove = lastMove == Player.X ? Player.O : Player.X;        // retrieves information on who's turn it is based on the last turn
+
+  return getFieldColor(thisMove).withAlpha(150);                    // changes the background color based on who's turn it is. The background color is slightly altered so it looks different from the player colors.
 }
+
+// This basically calls a lot of the methods we made
 
  @override
  Widget build(BuildContext context) => Scaffold(
-   backgroundColor: Colors.red,
+   backgroundColor: getBackgroundColor(),
    appBar: AppBar(
      title: Text(widget.title),
    ),
    body: Column(
      mainAxisAlignment: MainAxisAlignment.center,
-     children: Utils.modelBuilder(matrix, (x, value) => buildRow()),
+     children: Utils.modelBuilder(matrix, (x, value) => buildRow(x)),
    )
   );
 
-class _TicTacToePageState extends State<TicTacToePage> {
-  int _counter = 0;
+Widget buildRow(int x) {
+  final values = matrix[x];
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+// Build each individual row (x and y)
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: Utils.modelBuilder(
+      values,
+      (y, value) => buildField(x, y),
+    ),
+  );
+}
+
+//Background color for each tile!
+
+Color getFieldColor(String value) {
+  switch (value) {
+    case Player.O:              // Every time an O is placed, the color of the tile is changed
+      return Colors.blue;
+
+    case Player.X:              // Every time an X is placed, the color of the tile is changed
+      return Colors.red;
+
+    default:                    // By default, empty tiles are white.                
+      return Colors.white;
   }
 }
+
+// This also calls a bunch of methods that were made
+
+Widget buildField(int x, int y) {
+  final value = matrix[x][y];
+  final color = getFieldColor(value);
+
+  return Container(
+    margin: EdgeInsets.all(4),
+    child: ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      primary: color,
+    ),
+    child: Text(value, style: TextStyle(fontSize: 32)),
+    onPressed: () => selectField(value, x, y),
+  ),
+  );
+}
+
+void selectField(String value, int x, int y) {
+    if (value == Player.none) {
+      final newValue = lastMove == Player.X ? Player.O : Player.X;            // Switches between X and O. This is how turns work!
+
+      setState(() {
+        lastMove = newValue;            // The last move is the latest value
+        matrix[x][y] = newValue;
+      });
+
+      // If someone wins...
+
+      if (isWinner(x, y)) {
+
+        showEndDialog('Player $newValue is the winner!');   // A pop up dialog announces the winner of the game
+      }
+
+      // If a game ends in a tie...
+
+      else if (isEnd()) {
+
+        showEndDialog('Aw man, a tie.');                    // A pop up dialog says the game was a tie
+      }
+      
+    }
+  }
+
+ // For games that end in a tie:
+
+ bool isEnd() =>
+      matrix.every((values) => values.every((value) => value != Player.none));      // this checks to see if there are no more empty tiles left.
+
+  // HOW TO DETERMINE A WINNER
+
+  bool isWinner(int x, int y) {
+    var col = 0, row = 0, diag = 0, rdiag = 0;
+    final player = matrix[x][y];
+    final n = countMatrix;
+
+    for (int i = 0; i < n; i++) {
+      if (matrix[x][i] == player) col++;        // 3 in a row (column)
+      if (matrix[i][y] == player) row++;        // 3 in a row (row)
+      if (matrix[i][i] == player) diag++;       // 3 in a row (diagonal)
+      if (matrix[i][n - i - 1] == player) rdiag++;  
+    }
+
+    return row == n || col == n || diag == n || rdiag == n;
+  }
+
+Future showEndDialog(String title) => showDialog(
+  context: context,
+  barrierDismissible: false,
+  builder: (context) => AlertDialog(
+    title: Text(title),
+    content: Text('Press to play again'),
+    actions: [
+      ElevatedButton(
+        onPressed: () { 
+          setEmptyFields();                 // resets the tiles to their initial values (O and X are removed)
+          Navigator.of(context).pop();      // hides the dialog
+        },
+        child: Text('Restart'),
+      )
+    ],
+    ),
+  );
+}
+
