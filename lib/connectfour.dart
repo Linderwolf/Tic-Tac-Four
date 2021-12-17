@@ -40,8 +40,8 @@ class ConnectFourPage extends StatefulWidget {
 
 class Player {
   static const none = '';
-  static const red = 'red';
-  static const blue = 'blue';
+  static const red = '';
+  static const blue = '';
 }
 
 //The state of the Tic Tac Toe Page
