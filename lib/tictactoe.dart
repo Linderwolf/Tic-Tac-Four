@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/utils.dart';
+import '/main.dart';
 
 
 void main() {
@@ -52,6 +53,10 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   @override
   void initState() {
+
+    /// Portrait Orientation (Doesn't work?)
+    ///SystemChrome.setPreferredOrientations([DeviceOrientation.PortraitUp]);
+
     super.initState();
 
     setEmptyFields();
@@ -71,7 +76,6 @@ Color getBackgroundColor() {
 }
 
 // This basically calls a lot of the methods we made
-
  @override
  Widget build(BuildContext context) => Scaffold(
    backgroundColor: getBackgroundColor(),
@@ -79,7 +83,10 @@ Color getBackgroundColor() {
      title: Text(widget.title),
      actions: <Widget>[
        IconButton(
-         onPressed: () => Navigator.pop(context),   /////////////  POP TODO
+         onPressed: () {
+           Navigator.pop(context);
+           ///Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage));   /// How do we get back to the main page?...
+         },
          icon: Icon(Icons.add),)
      ],
    ),

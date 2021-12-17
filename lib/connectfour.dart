@@ -14,11 +14,11 @@ class ConnectFour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tic Tac Toe',
+      title: 'Connect Four',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const ConnectFourPage(title: 'Tic Tac Toe'),
+      home: const ConnectFourPage(title: 'Connect Four'),
     );
   }
 }
@@ -43,21 +43,32 @@ class Player {
 //The state of the Tic Tac Toe Page
 
 class _ConnectFourPageState extends State<ConnectFourPage> {
-  static final countMatrix = 3;       // size of the grid, prolly won't need to adjust this
-  static final double size = 92;       // size of each space to fill
+  static final countMatrix = 7;        // size of the grid, prolly won't need to adjust this
+  static final double size = 50;       // size of each space to fill
 
-  String lastMove = Player.none;      // At the start of the game, the latest move is no move (this makes sense)
+  String lastMove = Player.none;       // At the start of the game, the latest move is no move (this makes sense)
 
-  late List<List<String>> matrix;          // (How do we know we're in the matrix?)
+  late List<List<String>> matrix;      // (How do we know we're in the matrix?)
 
   @override
   void initState() {
+
+    /// Force landscape
+    // if (MediaQuery.of(context).orientation == Orientation.landscape)  /// Can't check for orientation before page has state... duh...
+    // {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
+    ///}
+
     super.initState();
 
     setEmptyFields();
   }
 
-  void setEmptyFields() => setState(() => matrix = List.generate(               // This creates a list of blocks (3 blocks total, this is the first column of spaces)
+  ///
+  /// TODO: Disable all buttons within lists, excepting bottom List Row
+  ///
+  // Generate List of Blocks
+  void setEmptyFields() => setState(() => matrix = List.generate(
     countMatrix,
         (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other two columns.
   ));
@@ -140,6 +151,9 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
     if (value == Player.none) {
       final newValue = lastMove == Player.X ? Player.O : Player.X;            // Switches between X and O. This is how turns work!
 
+      /// TODO: Enable buttons on outer List above lastmove
+      /// All buttons except the lowest List row should be disabled by default
+      ///
       setState(() {
         lastMove = newValue;            // The last move is the latest value
         matrix[x][y] = newValue;
@@ -169,6 +183,9 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
   // HOW TO DETERMINE A WINNER
 
+  /// TODO: Adjust win condition to after 4 in a row
+  /// Currently requires full screen fill of one player
+  /// Line cross-out animation after 4 in a row?
   bool isWinner(int x, int y) {
     var col = 0, row = 0, diag = 0, rdiag = 0;
     final player = matrix[x][y];

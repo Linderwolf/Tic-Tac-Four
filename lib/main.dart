@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './tictactoe.dart';
+import './connectfour.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MyApp(),
+    home: MainPage(),
     theme: ThemeData(
       brightness:Brightness.dark,
       primarySwatch: Colors.deepPurple,
@@ -19,32 +21,48 @@ final ThemeData themeData = ThemeData(
   canvasColor: Colors.black,
 );
 
-class MyApp extends StatelessWidget {
+class MainPage extends StatelessWidget {
+
+  /// Portrait Orientation (Doesn't work?)
+  ///SystemChrome.setPreferredOrientations([DeviceOrientation.PortraitUp]);
 
   @override
   Widget build(BuildContext ctx){
     return Scaffold(
-      body: Center(
-          child: TextButton(
-            onPressed: (){
-              Navigator.push(
-                  ctx,
-                  MaterialPageRoute(builder: (context) => TicTacToe()),
-              );
-            },
-            child: Text("Play TicTacToe"),
-          )
-      ),
+      body: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: (){
+                  Navigator.push(
+                    ctx,
+                    MaterialPageRoute(builder: (context) => TicTacToe()),
+                  );
+                },
+                child: Text("Play TicTacToe"),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: (){
+                  Navigator.push(
+                    ctx,
+                    MaterialPageRoute(builder: (context) => ConnectFour()),
+                  );
+                },
+                child: Text("Play Connect Four"),
+              ),
+            )
+          ),
+        ],
+      )
     );
   }
 }
-
-
-
-// class TicTacToe extends MaterialPageRoute<Null> {
-//   TicTacToe() : super(builder: (BuildContext ctx)){
-//     return Scaffold(
-//
-//     );
-//   });
-// }
