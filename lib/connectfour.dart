@@ -36,15 +36,15 @@ class ConnectFourPage extends StatefulWidget {
   State<ConnectFourPage> createState() => _ConnectFourPageState();
 }
 
-//Player classes for Tic Tac Toe
+//Player classes for Connect Four
 
 class Player {
   static const none = '';
-  static const red = '';
-  static const blue = '';
+  static const red = 'O';
+  static const blue = 'O';
 }
 
-//The state of the Tic Tac Toe Page
+//The state of the Connect Four page
 
 class _ConnectFourPageState extends State<ConnectFourPage> {
   static final countMatrix = 7;        // size of the grid, prolly won't need to adjust this
