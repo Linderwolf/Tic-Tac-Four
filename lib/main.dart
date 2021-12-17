@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(
+              child: OutlinedButton(
                 onPressed: (){
                   Navigator.push(
                     ctx,
@@ -53,7 +53,7 @@ class MainPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(
+              child: OutlinedButton(
                 onPressed: (){
                   Navigator.push(
                     ctx,
@@ -68,7 +68,7 @@ class MainPage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextButton(
+              child: OutlinedButton(
                 onPressed: (){
                   Navigator.push(
                     ctx,
