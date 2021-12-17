@@ -187,7 +187,8 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
   bool isWinner(int x, int y) {
     var col = 0, row = 0, diag = 0, rdiag = 0;
     final player = matrix[x][y];
-    final n = countMatrix;
+    //final n = countMatrix;
+    const n = 4;                                // I'm guessing this is the number of consecutive pieces to win a match.
 
     for (int i = 0; i < n; i++) {
       if (matrix[x][i] == player) col++;        // 3 in a row (column)
