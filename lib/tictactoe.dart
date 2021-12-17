@@ -18,7 +18,7 @@ class TicTacToe extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const TicTacToePage(title: 'Tic Tac Toe Home Page'),
+      home: const TicTacToePage(title: 'Tic Tac Toe'),
     );
   }
 }

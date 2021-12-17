@@ -27,7 +27,10 @@ class MyApp extends StatelessWidget {
       body: Center(
           child: TextButton(
             onPressed: (){
-              Navigator.push(ctx, TicTacToe());
+              Navigator.push(
+                  ctx,
+                  MaterialPageRoute(builder: (context) => TicTacToe()),
+              );
             },
             child: Text("Play TicTacToe"),
           )
