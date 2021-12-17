@@ -50,11 +50,11 @@ class Player {
 
 class _TicTacToePageState extends State<TicTacToePage> {
   static final countMatrix = 3;       // size of the grid, prolly won't need to adjust this
-  static final double size = 92;       // size of each space to fill
+  static final double size = 92;      // size of each space to fill
 
   String lastMove = Player.none;      // At the start of the game, the latest move is no move (this makes sense)
 
-  late List<List<String>> matrix;          // (How do we know we're in the matrix?)
+  late List<List<String>> matrix;     // (How do we know we're in the matrix?)
 
   @override
   void initState() {

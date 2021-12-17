@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import './settings.dart';
 import './tictactoe.dart';
 import './connectfour.dart';
 
@@ -45,6 +46,21 @@ class MainPage extends StatelessWidget {
                   );
                 },
                 child: Text("Play TicTacToe"),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: (){
+                  Navigator.push(
+                    ctx,
+                    MaterialPageRoute(builder: (context) => Settings()),
+                  );
+                },
+                child: Text("Game Settings"),
               ),
             ),
           ),
