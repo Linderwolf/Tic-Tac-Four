@@ -40,8 +40,8 @@ class ConnectFourPage extends StatefulWidget {
 
 class Player {
   static const none = '';
-  static const X = 'X';
-  static const O = 'O';
+  static const red = 'red';
+  static const blue = 'blue';
 }
 
 //The state of the Tic Tac Toe Page
@@ -74,7 +74,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 // Changes the background color depending on who's turn it is.
 
   Color getBackgroundColor() {
-    final thisMove = lastMove == Player.X ? Player.O : Player.X;        // retrieves information on who's turn it is based on the last turn
+    final thisMove = lastMove == Player.red ? Player.blue : Player.red;        // retrieves information on who's turn it is based on the last turn
 
     return getFieldColor(thisMove).withAlpha(150);                    // changes the background color based on who's turn it is. The background color is slightly altered so it looks different from the player colors.
   }
@@ -116,10 +116,10 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
   Color getFieldColor(String value) {
     switch (value) {
-      case Player.O:              // Every time an O is placed, the color of the tile is changed
+      case Player.blue:              // Every time a blue tile is placed, the color of the tile is changed
         return Colors.blue;
 
-      case Player.X:              // Every time an X is placed, the color of the tile is changed
+      case Player.red:              // Every time a red tile is placed, the color of the tile is changed
         return Colors.red;
 
       default:                    // By default, empty tiles are white.
@@ -147,7 +147,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
   void selectField(String value, int x, int y) {
     if (value == Player.none) {
-      final newValue = lastMove == Player.X ? Player.O : Player.X;            // Switches between X and O. This is how turns work!
+      final newValue = lastMove == Player.red ? Player.blue : Player.red;            // Switches between red and blue. This is how turns work!
 
       /// TODO: Enable buttons on outer List above lastmove
       /// All buttons except the lowest List row should be disabled by default
