@@ -178,7 +178,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
   /// TODO: Adjust win condition to after 4 in a row
   /// Currently requires full screen fill of one player
   /// Line cross-out animation after 4 in a row?
-  
+/*
   bool isWinner(int x, int y) {
     var col = 0, row = 0, diag = 0, rdiag = 0;
     final player = matrix[x][y];
@@ -194,43 +194,45 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
     return row == n || col == n || diag == n || rdiag == n;
   }
+*/
 
-/*
-bool isWinner(int player){
+bool isWinner(int x, int y){
+
+  final player = matrix[x][y];
 
     // horizontalCheck 
-    for (int y = 0; y<getHeight()-3 ; y++ ){
-        for (int i = 0; i<getWidth(); i++){
-            if (this.board[i][j] == player && this.board[i][j+1] == player && this.board[i][j+2] == player && this.board[i][j+3] == player){
+    for (y = 0; y < 7-3; y++ ){
+        for (x = 0; x < 7; x++){
+            if (matrix[x][y] == player && matrix[x][y+1] == player && matrix[x][y+2] == player && matrix[x][y+3] == player){
                 return true;
             }           
         }
     }
     // verticalCheck
-    for (int i = 0; i<getWidth()-3 ; i++ ){
-        for (int j = 0; j<this.getHeight(); j++){
-            if (this.board[i][j] == player && this.board[i+1][j] == player && this.board[i+2][j] == player && this.board[i+3][j] == player){
+    for (x = 0; x < 7-3 ; x++ ){
+        for (y = 0; y < 7; y++){
+            if (matrix[x][y] == player && matrix[x+1][y] == player && matrix[x+2][y] == player && matrix[x+3][y] == player){
                 return true;
             }           
         }
     }
     // ascendingDiagonalCheck 
-    for (int i=3; i<getWidth(); i++){
-        for (int j=0; j<getHeight()-3; j++){
-            if (this.board[i][j] == player && this.board[i-1][j+1] == player && this.board[i-2][j+2] == player && this.board[i-3][j+3] == player)
+    for (x = 3; x < 7; x++){
+        for (y = 0; y < 7-3; y++){
+            if (matrix[x][y] == player && matrix[x-1][y+1] == player && matrix[x-2][y+2] == player && matrix[x-3][y+3] == player)
                 return true;
         }
     }
     // descendingDiagonalCheck
-    for (int i=3; i<getWidth(); i++){
-        for (int j=3; j<getHeight(); j++){
-            if (this.board[i][j] == player && this.board[i-1][j-1] == player && this.board[i-2][j-2] == player && this.board[i-3][j-3] == player)
+    for (x = 3; x < 7; x++){
+        for (int y = 3; y < 7; y++){
+            if (matrix[x][y] == player && matrix[x-1][y-1] == player && matrix[x-2][y-2] == player && matrix[x-3][y-3] == player)
                 return true;
         }
     }
     return false;
 }
-*/
+
 
   Future showEndDialog(String title) => showDialog(
     context: context,
