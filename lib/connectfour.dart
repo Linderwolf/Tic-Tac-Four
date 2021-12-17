@@ -13,6 +13,10 @@ class ConnectFour extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([     /// Landscape Orientation
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight
+    ]);
     return MaterialApp(
       title: 'Connect Four',
       theme: ThemeData(
@@ -52,12 +56,6 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
   @override
   void initState() {
-
-    /// Force landscape
-    // if (MediaQuery.of(context).orientation == Orientation.landscape)  /// Can't check for orientation before page has state... duh...
-    // {
-      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
-    ///}
 
     super.initState();
 

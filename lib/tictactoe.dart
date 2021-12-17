@@ -14,6 +14,11 @@ class TicTacToe extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([     /// Portrait Orientation
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
       title: 'Tic Tac Toe',
       theme: ThemeData(
@@ -53,9 +58,6 @@ class _TicTacToePageState extends State<TicTacToePage> {
 
   @override
   void initState() {
-
-    /// Portrait Orientation (Doesn't work?)
-    ///SystemChrome.setPreferredOrientations([DeviceOrientation.PortraitUp]);
 
     super.initState();
 

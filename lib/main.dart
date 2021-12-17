@@ -23,11 +23,13 @@ final ThemeData themeData = ThemeData(
 
 class MainPage extends StatelessWidget {
 
-  /// Portrait Orientation (Doesn't work?)
-  ///SystemChrome.setPreferredOrientations([DeviceOrientation.PortraitUp]);
-
   @override
   Widget build(BuildContext ctx){
+    SystemChrome.setPreferredOrientations([     /// Portrait Orientation
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
