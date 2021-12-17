@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import './pickers/hsv_picker.dart';
 import './pickers/material_picker.dart';
 import './pickers/block_picker.dart';
 
 void main() => runApp(const MaterialApp(home: Settings()));
+
+bool lightTheme = true;
+final foregroundColor = useWhiteForeground(currentColor) ? Colors.white : Colors.black;
+Color currentColor = Colors.amber;
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -14,8 +19,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool lightTheme = true;
-  Color currentColor = Colors.amber;
   List<Color> currentColors = [Colors.yellow, Colors.green];
   List<Color> colorHistory = [];
 
@@ -24,7 +27,11 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    final foregroundColor = useWhiteForeground(currentColor) ? Colors.white : Colors.black;
+    SystemChrome.setPreferredOrientations([     /// Portrait Orientation
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return AnimatedTheme(
       data: lightTheme ? ThemeData.light() : ThemeData.dark(),
       child: Builder(builder: (context) {
@@ -40,13 +47,13 @@ class _SettingsState extends State<Settings> {
               elevation: 15,
             ),
             appBar: AppBar(
-              title: const Text('Flutter Color Picker Example'),
+              title: const Text('Settings '),
               backgroundColor: currentColor,
               foregroundColor: foregroundColor,
               bottom: TabBar(
                 labelColor: foregroundColor,
                 tabs: const <Widget>[
-                  Tab(text: 'HSV/HSL/RGB'),
+                  Tab(text: 'Theme'),
                   Tab(text: 'Material'),
                   Tab(text: 'Blocky'),
                 ],

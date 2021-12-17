@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import './settings.dart';
 import './player.dart';
 import '/utils.dart';
 import '/main.dart';
