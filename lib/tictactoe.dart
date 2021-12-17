@@ -77,6 +77,11 @@ Color getBackgroundColor() {
    backgroundColor: getBackgroundColor(),
    appBar: AppBar(
      title: Text(widget.title),
+     actions: <Widget>[
+       IconButton(
+         onPressed: () => Navigator.pop(context),   /////////////  POP TODO
+         icon: Icon(Icons.add),)
+     ],
    ),
    body: Column(
      mainAxisAlignment: MainAxisAlignment.center,
