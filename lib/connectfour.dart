@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './settings.dart';
 import './player.dart';
 import '/utils.dart';
+import '/settings.dart';
 
 
 void main() {
@@ -62,7 +62,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
   // Generate List of Blocks
   void setEmptyFields() => setState(() => matrix = List.generate(
     countMatrix,
-        (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other two columns.
+        (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other columns
   ));
 
 // Changes the background color depending on who's turn it is.
@@ -178,6 +178,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
   /// TODO: Adjust win condition to after 4 in a row
   /// Currently requires full screen fill of one player
   /// Line cross-out animation after 4 in a row?
+  
   bool isWinner(int x, int y) {
     var col = 0, row = 0, diag = 0, rdiag = 0;
     final player = matrix[x][y];
@@ -185,14 +186,51 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
     const n = 4;                                // I'm guessing this is the number of consecutive pieces to win a match.
 
     for (int i = 0; i < n; i++) {
-      if (matrix[x][i] == player) col++;        // 3 in a row (column)
-      if (matrix[i][y] == player) row++;        // 3 in a row (row)
-      if (matrix[i][i] == player) diag++;       // 3 in a row (diagonal)
+      if (matrix[x][i] == player) col++;        // column matches
+      if (matrix[i][y] == player) row++;        // row matches
+      if (matrix[i][i] == player) diag++;       // diagonal matches
       if (matrix[i][n - i - 1] == player) rdiag++;
     }
 
     return row == n || col == n || diag == n || rdiag == n;
   }
+
+/*
+bool isWinner(int player){
+
+    // horizontalCheck 
+    for (int y = 0; y<getHeight()-3 ; y++ ){
+        for (int i = 0; i<getWidth(); i++){
+            if (this.board[i][j] == player && this.board[i][j+1] == player && this.board[i][j+2] == player && this.board[i][j+3] == player){
+                return true;
+            }           
+        }
+    }
+    // verticalCheck
+    for (int i = 0; i<getWidth()-3 ; i++ ){
+        for (int j = 0; j<this.getHeight(); j++){
+            if (this.board[i][j] == player && this.board[i+1][j] == player && this.board[i+2][j] == player && this.board[i+3][j] == player){
+                return true;
+            }           
+        }
+    }
+    // ascendingDiagonalCheck 
+    for (int i=3; i<getWidth(); i++){
+        for (int j=0; j<getHeight()-3; j++){
+            if (this.board[i][j] == player && this.board[i-1][j+1] == player && this.board[i-2][j+2] == player && this.board[i-3][j+3] == player)
+                return true;
+        }
+    }
+    // descendingDiagonalCheck
+    for (int i=3; i<getWidth(); i++){
+        for (int j=3; j<getHeight(); j++){
+            if (this.board[i][j] == player && this.board[i-1][j-1] == player && this.board[i-2][j-2] == player && this.board[i-3][j-3] == player)
+                return true;
+        }
+    }
+    return false;
+}
+*/
 
   Future showEndDialog(String title) => showDialog(
     context: context,
