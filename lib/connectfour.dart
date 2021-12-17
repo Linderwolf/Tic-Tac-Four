@@ -42,7 +42,7 @@ class ConnectFourPage extends StatefulWidget {
 
 class _ConnectFourPageState extends State<ConnectFourPage> {
   static final countMatrix = 7;        // size of the grid, prolly won't need to adjust this
-  static final double size = 50;       // size of each space to fill
+  static final double size = 40;       // size of each space to fill
 
   String lastMove = Player.none;       // At the start of the game, the latest move is no move (this makes sense)
 
@@ -128,7 +128,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
     final color = getFieldColor(value);
 
     return Container(
-      margin: EdgeInsets.all(4),
+      margin: EdgeInsets.all(4),          // The space between tiles
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: color,
@@ -175,9 +175,6 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
 
   // HOW TO DETERMINE A WINNER
 
-  /// TODO: Adjust win condition to after 4 in a row
-  /// Currently requires full screen fill of one player
-  /// Line cross-out animation after 4 in a row?
 /*
   bool isWinner(int x, int y) {
     var col = 0, row = 0, diag = 0, rdiag = 0;
@@ -201,7 +198,7 @@ bool isWinner(int x, int y){
   final player = matrix[x][y];
 
     // horizontalCheck 
-    for (y = 0; y < 7-3; y++ ){
+    for (y = 0; y < countMatrix - 3; y++ ){
         for (x = 0; x < 7; x++){
             if (matrix[x][y] == player && matrix[x][y+1] == player && matrix[x][y+2] == player && matrix[x][y+3] == player){
                 return true;
@@ -209,23 +206,23 @@ bool isWinner(int x, int y){
         }
     }
     // verticalCheck
-    for (x = 0; x < 7-3 ; x++ ){
-        for (y = 0; y < 7; y++){
+    for (x = 0; x < countMatrix - 3 ; x++ ){
+        for (y = 0; y < countMatrix; y++){
             if (matrix[x][y] == player && matrix[x+1][y] == player && matrix[x+2][y] == player && matrix[x+3][y] == player){
                 return true;
             }           
         }
     }
     // ascendingDiagonalCheck 
-    for (x = 3; x < 7; x++){
-        for (y = 0; y < 7-3; y++){
+    for (x = 3; x < countMatrix; x++){
+        for (y = 0; y < countMatrix - 3; y++){
             if (matrix[x][y] == player && matrix[x-1][y+1] == player && matrix[x-2][y+2] == player && matrix[x-3][y+3] == player)
                 return true;
         }
     }
     // descendingDiagonalCheck
-    for (x = 3; x < 7; x++){
-        for (int y = 3; y < 7; y++){
+    for (x = 3; x < countMatrix; x++){
+        for (int y = 3; y < countMatrix; y++){
             if (matrix[x][y] == player && matrix[x-1][y-1] == player && matrix[x-2][y-2] == player && matrix[x-3][y-3] == player)
                 return true;
         }
