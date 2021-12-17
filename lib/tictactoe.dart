@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import './player.dart';
 import '/utils.dart';
 import '/main.dart';
 
@@ -38,14 +39,6 @@ class TicTacToePage extends StatefulWidget {
   State<TicTacToePage> createState() => _TicTacToePageState();
 }
 
-//Player classes for Tic Tac Toe
-
-class Player {
-  static const none = '';
-  static const X = 'X';
-  static const O = 'O';
-}
-
 //The state of the Tic Tac Toe Page
 
 class _TicTacToePageState extends State<TicTacToePage> {
@@ -64,17 +57,17 @@ class _TicTacToePageState extends State<TicTacToePage> {
     setEmptyFields();
   }
 
-  void setEmptyFields() => setState(() => matrix = List.generate(               // This creates a list of blocks (3 blocks total, this is the first column of spaces)
+  void setEmptyFields() => setState(() => matrix = List.generate(     // This creates a list of blocks (3 blocks total, this is the first column of spaces)
     countMatrix,
-    (_) => List.generate(countMatrix, (_) => Player.none),         // Each of those three blocks will have a list inside them, creating the other two columns.
+    (_) => List.generate(countMatrix, (_) => Player.none),            // Each of those three blocks will have a list inside them, creating the other two columns.
   ));
 
 // Changes the background color depending on who's turn it is.
 
 Color getBackgroundColor() {
-  final thisMove = lastMove == Player.X ? Player.O : Player.X;        // retrieves information on who's turn it is based on the last turn
+  final thisMove = lastMove == Player.one ? Player.two : Player.one; // retrieves information on who's turn it is based on the last turn
 
-  return getFieldColor(thisMove).withAlpha(150);                    // changes the background color based on who's turn it is. The background color is slightly altered so it looks different from the player colors.
+  return getFieldColor(thisMove).withAlpha(150);                     // changes the background color based on who's turn it is. The background color is slightly altered so it looks different from the player colors.
 }
 
 // This basically calls a lot of the methods we made
@@ -85,11 +78,8 @@ Color getBackgroundColor() {
      title: Text(widget.title),
      actions: <Widget>[
        IconButton(
-         onPressed: () {
-           Navigator.pop(context);
-           ///Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage));   /// How do we get back to the main page?...
-         },
-         icon: Icon(Icons.add),)
+         onPressed: () => setEmptyFields(),
+         icon: Icon(Icons.air),)
      ],
    ),
    body: Column(
@@ -114,12 +104,15 @@ Widget buildRow(int x) {
 
 //Background color for each tile!
 
+  ///
+  /// TODO: Change color based on selected player colour in settings
+  ///
 Color getFieldColor(String value) {
   switch (value) {
-    case Player.O:              // Every time an O is placed, the color of the tile is changed
+    case Player.two:              // Every time an O is placed, the color of the tile is changed
       return Colors.blue;
 
-    case Player.X:              // Every time an X is placed, the color of the tile is changed
+    case Player.one:              // Every time an X is placed, the color of the tile is changed
       return Colors.red;
 
     default:                    // By default, empty tiles are white.                
@@ -147,7 +140,7 @@ Widget buildField(int x, int y) {
 
 void selectField(String value, int x, int y) {
     if (value == Player.none) {
-      final newValue = lastMove == Player.X ? Player.O : Player.X;            // Switches between X and O. This is how turns work!
+      final newValue = lastMove == Player.one ? Player.two : Player.one;            // Switches between X and O. This is how turns work!
 
       setState(() {
         lastMove = newValue;            // The last move is the latest value
