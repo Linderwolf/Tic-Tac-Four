@@ -9,21 +9,21 @@ void main() {
   runApp(
     MaterialApp(
       home: MainPage(),
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.deepPurple,
-        primaryColor: const Color(0xFF212121),
-        accentColor: const Color(0xFF64ffda),
-        canvasColor: const Color(0xFF303030),
-        fontFamily: 'Roboto',
-      ),
+      // theme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   primarySwatch: Colors.deepPurple,
+      //   primaryColor: const Color(0xFF212121),
+      //   accentColor: const Color(0xFF64ffda),
+      //   canvasColor: const Color(0xFF303030),
+      //   fontFamily: 'Roboto',
+      // ),
     ),
   );
 }
 
-final ThemeData themeData = ThemeData(
-  canvasColor: Colors.black,
-);
+// final ThemeData themeData = ThemeData(
+//   canvasColor: Colors.black,
+// );
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -43,12 +43,20 @@ class _MainPageState extends State<MainPage> {
       DeviceOrientation.portraitDown,
     ]);
 
+    var currentColor = getColor();
+    var foregroundColor = getForegroundColor();
+
     return AnimatedTheme(
       data: lightTheme ? ThemeData.light() : ThemeData.dark(),
       child: Builder(builder: (context) {
         return DefaultTabController(
           length: 3,
           child: Scaffold(
+            appBar: AppBar(
+                title: const Text('ConnectToe or TicTacFour?'),
+                backgroundColor: currentColor,
+                foregroundColor: foregroundColor,
+            ),
               body: Stack(
             children: <Widget>[
               Align(
@@ -72,22 +80,6 @@ class _MainPageState extends State<MainPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: OutlinedButton(
                     onPressed: () {
-
-                      // ColorPicker(colorPickerWidth: 300,
-                      // pickerAreaHeightPercent: 0.7,
-                      // enableAlpha: true,
-                      // labelTypes: [],
-                      // displayThumbColor: true,
-                      // paletteType: PaletteType.hueWheel,
-                      // pickerAreaBorderRadius: const BorderRadius.only(topLeft: Radius.circular(2), topRight: Radius.circular(2)),
-                      // hexInputBar: false,
-                      // pickerColor: currentColor,
-                      // onColorChanged: changeColor,
-                      // pickerColors: currentColors,
-                      // onColorsChanged: changeColors,
-                      // colorHistory: colorHistory,
-                      // onHistoryChanged: changeColorHistory,);
-
                       Navigator.push(
                         ctx,
                         MaterialPageRoute(builder: (context) => const Settings()),

@@ -4,12 +4,18 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import './pickers/hsv_picker.dart';
 import './pickers/material_picker.dart';
 import './pickers/block_picker.dart';
-
-void main() => runApp(const MaterialApp(home: Settings()));
+import './main.dart';
 
 bool lightTheme = true;
 final foregroundColor = useWhiteForeground(currentColor) ? Colors.white : Colors.black;
 Color currentColor = Colors.amber;
+
+Color getColor(){
+  return currentColor;
+}
+Color getForegroundColor(){
+  return foregroundColor;
+}
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -36,7 +42,7 @@ class _SettingsState extends State<Settings> {
       data: lightTheme ? ThemeData.light() : ThemeData.dark(),
       child: Builder(builder: (context) {
         return DefaultTabController(
-          length: 3,
+          length: 1,
           child: Scaffold(
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () => setState(() => lightTheme = !lightTheme),
@@ -54,8 +60,8 @@ class _SettingsState extends State<Settings> {
                 labelColor: foregroundColor,
                 tabs: const <Widget>[
                   Tab(text: 'Theme'),
-                  Tab(text: 'Material'),
-                  Tab(text: 'Blocky'),
+                  // Tab(text: 'Material'),
+                  // Tab(text: 'Blocky'),
                 ],
               ),
             ),
@@ -67,14 +73,14 @@ class _SettingsState extends State<Settings> {
                   colorHistory: colorHistory,
                   onHistoryChanged: (List<Color> colors) => colorHistory = colors,
                 ),
-                MaterialColorPickerExample(pickerColor: currentColor, onColorChanged: changeColor),
-                BlockColorPickerExample(
-                  pickerColor: currentColor,
-                  onColorChanged: changeColor,
-                  pickerColors: currentColors,
-                  onColorsChanged: changeColors,
-                  colorHistory: colorHistory,
-                ),
+                // MaterialColorPickerExample(pickerColor: currentColor, onColorChanged: changeColor),
+                // BlockColorPickerExample(
+                //   pickerColor: currentColor,
+                //   onColorChanged: changeColor,
+                //   pickerColors: currentColors,
+                //   onColorsChanged: changeColors,
+                //   colorHistory: colorHistory,
+                // ),
               ],
             ),
           ),

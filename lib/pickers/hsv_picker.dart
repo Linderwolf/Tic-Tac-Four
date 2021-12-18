@@ -101,7 +101,7 @@ class _HSVColorPickerExampleState extends State<HSVColorPickerExample> {
                 );
               },
               child: Text(
-                'Color Picker with Slider',
+                'Theme Color',
                 style: TextStyle(color: useWhiteForeground(widget.pickerColor) ? Colors.white : Colors.black),
               ),
               style: ElevatedButton.styleFrom(
@@ -111,46 +111,46 @@ class _HSVColorPickerExampleState extends State<HSVColorPickerExample> {
               ),
             ),
             const SizedBox(width: 20),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: SingleChildScrollView(
-                        child: Text(
-                          '''
-ColorPicker(
-  pickerColor: color,
-  onColorChanged: changeColor,
-  colorPickerWidth: 300,
-  pickerAreaHeightPercent: 0.7,
-  enableAlpha: $_enableAlpha,
-  labelTypes: $_labelTypes,
-  displayThumbColor: $_displayThumbColor,
-  paletteType: $_paletteType,
-  pickerAreaBorderRadius: const BorderRadius.only(
-    topLeft: Radius.circular(2),
-    topRight: Radius.circular(2),
-  ),
-  hexInputBar: $_displayHexInputBar,
-  colorHistory: colorHistory,
-  onHistoryChanged: changeColorHistory,
-)
-                          ''',
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: Icon(Icons.code, color: useWhiteForeground(widget.pickerColor) ? Colors.white : Colors.black),
-              style: ElevatedButton.styleFrom(
-                primary: widget.pickerColor,
-                shadowColor: widget.pickerColor.withOpacity(1),
-                elevation: 10,
-              ),
-            ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 showDialog(
+//                   context: context,
+//                   builder: (BuildContext context) {
+//                     return AlertDialog(
+//                       content: SingleChildScrollView(
+//                         child: Text(
+//                           '''
+// ColorPicker(
+//   pickerColor: color,
+//   onColorChanged: changeColor,
+//   colorPickerWidth: 300,
+//   pickerAreaHeightPercent: 0.7,
+//   enableAlpha: $_enableAlpha,
+//   labelTypes: $_labelTypes,
+//   displayThumbColor: $_displayThumbColor,
+//   paletteType: $_paletteType,
+//   pickerAreaBorderRadius: const BorderRadius.only(
+//     topLeft: Radius.circular(2),
+//     topRight: Radius.circular(2),
+//   ),
+//   hexInputBar: $_displayHexInputBar,
+//   colorHistory: colorHistory,
+//   onHistoryChanged: changeColorHistory,
+// )
+//                           ''',
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 );
+//               },
+//               child: Icon(Icons.code, color: useWhiteForeground(widget.pickerColor) ? Colors.white : Colors.black),
+//               style: ElevatedButton.styleFrom(
+//                 primary: widget.pickerColor,
+//                 shadowColor: widget.pickerColor.withOpacity(1),
+//                 elevation: 10,
+//               ),
+//             ),
           ],
         ),
 //         SwitchListTile(
