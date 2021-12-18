@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
           length: 3,
           child: Scaffold(
             appBar: AppBar(
-                title: const Text('ConnectToe or TicTacFour?'),
+                title: const Text('TicTacFour'),
                 backgroundColor: currentColor,
                 foregroundColor: foregroundColor,
             ),

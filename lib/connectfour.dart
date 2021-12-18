@@ -61,9 +61,6 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
     setEmptyFields();
   }
 
-  ///
-  /// TODO: Disable all buttons within lists, excepting bottom List Row
-  ///
   // Generate List of Blocks
   void setEmptyFields() => setState(() => matrix = List.generate(
         countMatrix,
@@ -152,8 +149,6 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
     return Container(
       margin: EdgeInsets.all(4), // The space between tiles
       child: ElevatedButton(
-
-          /// THE BUTTON
           style: ElevatedButton.styleFrom(
             primary: color,
           ),
@@ -176,9 +171,6 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
             : Player
                 .one; // Switches between red and blue. This is how turns work!
 
-        /// TODO: Enable buttons on outer List above lastmove
-        /// All buttons except the lowest List row should be disabled by default
-        ///
         setState(() {
           lastMove = newValue; // The last move is the latest value
           matrix[x][y] = newValue;
@@ -197,9 +189,7 @@ class _ConnectFourPageState extends State<ConnectFourPage> {
               'Aw man, a tie.'); // A pop up dialog says the game was a tie
         }
       }
-    } else {
-      /// invalid action
-    }
+    } /// Else invalid action
   }
 
   // For games that end in a tie:
